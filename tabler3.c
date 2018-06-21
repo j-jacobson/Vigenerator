@@ -3,9 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-/*#define MAX_KEY_SZ 500
-#define MAX_MESSAGE_SZ 500
-*/
+#define MAX_SZ 500
 
 int i, j, k, columns;
 
