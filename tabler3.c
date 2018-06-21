@@ -51,18 +51,18 @@ int table(){
 
 /* print the letter of the alphabet, a '|' character, and then the letter that should be next in that alphabet */
 
-  for(j = 0; j < 26; j++){
-    printf("%c |", 'a' + j);
-    for(i = 0, k = 0; i < columns; i++, k++){
-      if(!key[k])
-        k = 0;
+  for(k = 0; k < 26; k++){
+    printf("%c |", 'a' + k);
+    for(i = 0, j = 0; i < columns; i++, j++){
+      if(!key[j])
+        j = 0;
 
-      if((key[k] + j + 1) > 'z'){
-        printf(" %c", (key[k] + j - ('z' - 'a')));
+      if((key[j] + k + 1) > 'z'){
+        printf(" %c", (key[j] + k - ('z' - 'a')));
         continue;
       }
 
-      printf(" %c", key[k] + j + 1);
+      printf(" %c", key[j] + k + 1);
     }
 
     printf("\n");
