@@ -9,21 +9,20 @@
 
 int i, j, k, columns;
 
-char key_raw[100], key[100];
-char message_raw[100], message[100];
+char message[100], key[100];
+char raw[100], out[100];
 char encrypted[100];
 char choice[1];
 
-/*
-char despaced(*char which){
-  fgets(what, 500, stdin);
-  for(i = 0; j = 0; i < sizeof(key); i++){
-    if(which[i] != ' '){
-      copy[j] = which[i];
+char despaced(char *raw){
+  fgets(raw, 100, stdin);
+  for(i = 0; j = 0; i < sizeof(raw); i++){
+    if(raw[i] != ' '){
+      out[j] = raw[i];
       j++;
     }
   }
-  return(*copy)
+  return(*out)
 }
 */
 
@@ -41,7 +40,7 @@ int table(){
 
 /*  char abc[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};*/
   printf("Type your key: ");
-  fgets(key_raw, 100, stdin);
+  /*fgets(key_raw, 100, stdin);
   for(i = 0, j = 0; i < sizeof(key_raw); i++){
     if(key_raw[i] != ' '){
       key[j] = key_raw[i];
@@ -49,7 +48,8 @@ int table(){
     }
   }
 /*  key[strcspn(key, "\n")] = 0;*/
-
+*/
+  despaced(*key);
   printf("\n    ");
 /* print the first row, the key, offset by a space. */
   for(i = 0, j = 0; i < columns; i++, j++){
