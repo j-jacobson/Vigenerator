@@ -36,27 +36,17 @@ int table(){
   }
   while(columns < 1 | columns > 50);
 
-/*  char abc[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};*/
   printf("Type your key: ");
-  /*fgets(key_raw, 100, stdin);
-  for(i = 0, j = 0; i < sizeof(key_raw); i++){
-    if(key_raw[i] != ' '){
-      key[j] = key_raw[i];
-      j++;
-    }
-  }
-/*  key[strcspn(key, "\n")] = 0;*/
-*/
   despaced(*key);
-  printf("\n    ");
+
 /* print the first row, the key, offset by a space. */
-  for(i = 0, j = 0; i < columns; i++, j++){
+  for(i = 0, j = 0, printf("\n    "); i < columns; i++, j++){
     if(!(key[j]))
       j = 0;
     printf("%c ", key[j]);
   }
-  printf("\n  -");
-  for(i = 0; i < columns; i++)
+
+  for(i = 0, printf("\n  -"); i < columns; i++)
     printf("--");
   printf("\n");
 /* print the letter of the alphabet, a '|' character, and then the letter that should be next in that alphabet */
