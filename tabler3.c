@@ -13,7 +13,7 @@ char encrypted[100];
 char choice[1];
 
 char despaced(char *raw){
-  fgets(raw, 100, stdin);
+  fgets(raw, MAX_SZ, stdin);
   for(i = 0; j = 0; i < sizeof(raw); i++){
     if(raw[i] != ' '){
       out[j] = raw[i];
@@ -49,6 +49,7 @@ int table(){
   for(i = 0, printf("\n  -"); i < columns; i++)
     printf("--");
   printf("\n");
+
 /* print the letter of the alphabet, a '|' character, and then the letter that should be next in that alphabet */
 
   for(j = 0; j < 26; j++){
@@ -74,13 +75,8 @@ int encrypt(){
 
   do{
     printf("Please type your message: ");
-    fgets(message_raw, 500, stdin);
-    for(i = 0, j = 0; i < sizeof(message_raw); i++){
-      if(message_raw[i] != ' '){
-        message[j] = message_raw[i];
-        j++;
-      }
-    }
+    despaced(*message);
+
     if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
     else if(strlen(message) > 500)
@@ -90,13 +86,7 @@ int encrypt(){
 
   do {
     printf("Please type your key: ");
-    fgets(key_raw, 500, stdin);
-    for(i = 0, j = 0; i < sizeof(key_raw); i++){
-      if(key_raw[i] != ' '){
-        key[j] = key_raw[i];
-        j++;
-      }
-    }
+    despaced(*key);
     if(strlen(key) < (strlen(message) / 4))
       printf("ERROR: Key too short.\n");
     if(strlen(key) > 500)
@@ -128,13 +118,7 @@ int decrypt(){
 */
 do{
     printf("Please type your message: ");
-    fgets(message_raw, 500, stdin);
-    for(i = 0, j = 0; i < sizeof(message_raw); i++){
-      if(message_raw[i] != ' '){
-        message[j] = message_raw[i];
-        j++;
-      }
-    }
+    despaced(*message);
 
     if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
@@ -145,13 +129,7 @@ do{
 
   do {
     printf("Please type your key: ");
-    fgets(key_raw, 500, stdin);
-    for(i = 0, j = 0; i < sizeof(key_raw); i++){
-      if(key_raw[i] != ' '){
-        key[j] = key_raw[i];
-        j++;
-      }
-    }
+    despaced(*key);
 
     if(strlen(key) < (strlen(message) / 4))
       printf("ERROR: Key too short.\n");
