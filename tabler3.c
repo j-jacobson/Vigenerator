@@ -22,7 +22,6 @@ char despaced(char *raw){
   }
   return(*out)
 }
-*/
 
 int table(){
 
