@@ -10,7 +10,6 @@ int main(){
 
   fgets(key, 100, stdin);
   for(i = 0, j = 0; i < sizeof(key); i++){
-    
     if(isdigit(key[i]) | isalpha(key[i])){
       copy[j] = key[i];
       j++;

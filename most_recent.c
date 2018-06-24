@@ -12,34 +12,37 @@ char raw[100], out[100];
 char encrypted[100];
 char choice[1];
 
-char despaced(char *raw){
-  fgets(raw, MAX_SZ, stdin);
-  for(i = 0; j = 0; i < sizeof(raw); i++){
-    if(raw[i] != ' '){
-      out[j] = raw[i];
-      j++;
-    }
+void despaced(char *out){
+  while((k = getchar()) != '\n'){
+    if((k != ' '))
+      out[i++] = k;
   }
-  return(*out)
 }
 
 int table(){
 
-  do{
+/*  do{
     printf("Type the number of columns you need: ");
-    scanf("%d", &columns);
+    scanf("%i", &columns);
     if(columns < 1)
       printf("ERROR: Too few columns.\n");
-    else if(columns > 100)
+    else if(columns > 50)
       printf("ERROR: Too many columns.\n");
   }
   while(columns < 1 | columns > 50);
-
+*/
   printf("Type your key: ");
-  despaced(*key);
+/*  fgets(key, 100, stdin);*/
+/*  despaced(&key);*/
+  while((k = getchar()) != '\n'){
+    if((k != ' '))
+      key[i++] = k;
+  }
+  for(i = 0; i < sizeof(key); i++)
+    printf("%c", key[i]);
 
 /* print the first row, the key, offset by a space. */
-  for(i = 0, j = 0, printf("\n    "); i < columns; i++, j++){
+  for(i = 0, j = 0, printf("\n    "); i < 20/*columns*/; i++, j++){
     if(!(key[j]))
       j = 0;
     printf("%c ", key[j]);
@@ -74,7 +77,7 @@ int encrypt(){
 
   do{
     printf("Please type your message: ");
-    despaced(*message);
+    despaced(&message);
 
     if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
@@ -85,7 +88,7 @@ int encrypt(){
 
   do {
     printf("Please type your key: ");
-    despaced(*key);
+    despaced(&key);
     if(strlen(key) < (strlen(message) / 4))
       printf("ERROR: Key too short.\n");
     if(strlen(key) > 500)
@@ -117,7 +120,7 @@ int decrypt(){
 */
 do{
     printf("Please type your message: ");
-    despaced(*message);
+    despaced(&message);
 
     if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
@@ -128,7 +131,7 @@ do{
 
   do {
     printf("Please type your key: ");
-    despaced(*key);
+    despaced(&key);
 
     if(strlen(key) < (strlen(message) / 4))
       printf("ERROR: Key too short.\n");
