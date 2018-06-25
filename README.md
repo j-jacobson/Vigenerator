@@ -1,5 +1,7 @@
-# autokeyer
-Program to encrypt and decrypt messages, as well as produce tabula recta using Girolamo Cardano's AutoKey cipher.
+# Vigenerator = Vigenère + Generator
+Program to encrypt and decrypt messages, as well as produce tabula recta using Giovan Battista Bellaso's Vigenère cipher. 
+
+https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
 
 most_recent.c is where active work is being done.
 
