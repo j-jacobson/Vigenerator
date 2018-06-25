@@ -162,7 +162,8 @@ int main(){
 
   do{
     printf("Show (T)able, (E)ncrypt message, or (D)ecrypt message?: ");
-    scanf("%c", choice);
+    fgets(choice, MAX_SZ, stdin);
+    /*scanf("%c", choice);*/
   }
   while((*choice != 'T') & (*choice != 'E') & (*choice != 'D'));
 
