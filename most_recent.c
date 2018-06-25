@@ -12,7 +12,7 @@ char raw[100], out[100];
 char encrypted[100];
 char choice[1];
 
-void despaced(char *out){
+void despaced(char &out){
   while((k = getchar()) != '\n'){
     if((k != ' '))
       out[i++] = k;
