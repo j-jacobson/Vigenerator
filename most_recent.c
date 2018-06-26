@@ -27,10 +27,10 @@ int table(){
   printf("Type your key: ");
 
   fgets(key, MAX_SZ, stdin);
-  for(i = 0, j = 0; i < strlen(key); i++){
-    if(key[i] == ' ')
+  for(i = 0, j = 0; i < strlen(key_raw); i++){
+    if(key_raw[i] == ' ')
       continue;
-    key[j++] = key[i];
+    key[j++] = key_raw[i];
   }
 
 /* print the first row, the key, offset by a space. */
