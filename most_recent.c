@@ -8,7 +8,7 @@
 int i, j, k, columns;
 
 char message[100], key[100];
-char raw[100], out[100];
+char message_raw[100], key_raw[100];
 char encrypted[100];
 char choice[1];
 
