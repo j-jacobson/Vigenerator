@@ -12,43 +12,36 @@ char raw[100], out[100];
 char encrypted[100];
 char choice[1];
 
-void despaced(char &out){
-  while((k = getchar()) != '\n'){
-    if((k != ' '))
-      out[i++] = k;
-  }
-}
-
 int table(){
 
-/*  do{
+  do{
     printf("Type the number of columns you need: ");
-    scanf("%i", &columns);
+    scanf("%d", columns);
     if(columns < 1)
       printf("ERROR: Too few columns.\n");
     else if(columns > 50)
       printf("ERROR: Too many columns.\n");
   }
   while(columns < 1 | columns > 50);
-*/
+
   printf("Type your key: ");
-/*  fgets(key, 100, stdin);*/
-/*  despaced(&key);*/
-  while((k = getchar()) != '\n'){
-    if((k != ' '))
-      key[i++] = k;
+
+  fgets(key, MAX_SZ, stdin);
+  for(i = 0, j = 0; i < strlen(key); i++){
+    if(key[i] == ' ')
+      continue;
+    key[j++] = key[i];
   }
-  for(i = 0; i < sizeof(key); i++)
-    printf("%c", key[i]);
 
 /* print the first row, the key, offset by a space. */
-  for(i = 0, j = 0, printf("\n    "); i < 20/*columns*/; i++, j++){
+
+  for(i = 0, j = 0, printf("\n    "); i < columns; i++, j++){
     if(!(key[j]))
       j = 0;
     printf("%c ", key[j]);
   }
 
-  for(i = 0, printf("\n  -"); i < columns; i++)
+  for(i = 0, printf("\n  -"); i < 20; i++)
     printf("--");
   printf("\n");
 
@@ -56,7 +49,7 @@ int table(){
 
   for(k = 0; k < 26; k++){
     printf("%c |", 'a' + k);
-    for(i = 0, j = 0; i < columns; i++, j++){
+    for(i = 0, j = 0; i < 20; i++, j++){
       if(!key[j])
         j = 0;
 
@@ -77,7 +70,21 @@ int encrypt(){
 
   do{
     printf("Please type your message: ");
-    despaced(&message);
+
+    fgets(message, MAX_SZ, stdin);
+    for(i = 0, j = 0; i < strlen(message); i++){
+      if(message[i] == ' '){
+        continue;
+        k++;
+      }
+      message[j++] = message[i];
+    }
+
+    for( ;k > 0; k--)
+      message[j++] = '\0';
+
+    for(i = 0; i < strlen(message); i++)
+      printf("%c", message[i]);
 
     if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
@@ -87,8 +94,17 @@ int encrypt(){
   while(strlen(message) < 1 | strlen(message) > 500);
 
   do {
+
     printf("Please type your key: ");
-    despaced(&key);
+
+    fgets(key, MAX_SZ, stdin);
+    for(i = 0, j = 0; i < sizeof(key); i++){
+      if(key[i] == ' ')
+        continue;
+      printf("%c", key[i]);
+      key[j++] = key[i];
+    }
+
     if(strlen(key) < (strlen(message) / 4))
       printf("ERROR: Key too short.\n");
     if(strlen(key) > 500)
@@ -108,6 +124,7 @@ int encrypt(){
     printf("%c", key[j] + (message[i] - 'a') + 1);
   }
   printf("\n");
+
 }
 
 int decrypt(){
@@ -120,7 +137,7 @@ int decrypt(){
 */
 do{
     printf("Please type your message: ");
-    despaced(&message);
+    /*despaced(&message);*/
 
     if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
@@ -131,7 +148,7 @@ do{
 
   do {
     printf("Please type your key: ");
-    despaced(&key);
+    /*despaced(&key);*/
 
     if(strlen(key) < (strlen(message) / 4))
       printf("ERROR: Key too short.\n");
