@@ -8,7 +8,7 @@
 int i, j, k, columns;
 
 char message[100], key[100];
-char raw[100], out[100];
+char message_raw[100], key_raw[100];
 char encrypted[100];
 char choice[1];
 
@@ -27,10 +27,10 @@ int table(){
   printf("Type your key: ");
 
   fgets(key, MAX_SZ, stdin);
-  for(i = 0, j = 0; i < strlen(key); i++){
-    if(key[i] == ' ')
+  for(i = 0, j = 0; i < strlen(key_raw); i++){
+    if(key_raw[i] == ' ')
       continue;
-    key[j++] = key[i];
+    key[j++] = key_raw[i];
   }
 
 /* print the first row, the key, offset by a space. */
