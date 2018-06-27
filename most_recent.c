@@ -2,7 +2,7 @@
 
 Title: Vigenerator v3.0
 Author: Jonathan Jacobson (jonjacobson715@airmail.cc)
-Github: https://www.github.com/j-jacobson/
+Github: https://github.com/j-jacobson/Vigenerator/
 
 */
 
@@ -31,7 +31,6 @@ char choice[1];
   * Numbers are unsupported. They should be converted and encrypted somehow. Maybe a seperate version
     of the algorithm should be created for them, it is important information.
   * A guy on stack exchange said that you should use strtol() instead of atoi() because it has better error handling.
-  * When decrypting, the message is too short. Always.
 
 */
 
