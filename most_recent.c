@@ -53,81 +53,91 @@ int table(){
   }
   while(columns < 1 | columns > 50);
 
+  do{
+
 /* Get the Key and remove the spaces */
+    printf("Type your key: ");
 
-  printf("Type your key: ");
+    fgets(key_raw, MAX_SZ, stdin);
+    for(i = 0, j = 0; i < strlen(key_raw); i++){
 
-  fgets(key_raw, MAX_SZ, stdin);
-  for(i = 0, j = 0; i < strlen(key_raw); i++){
-
-/* Replace any number in the key with the their word equivalent. Probably not very useful for a key. */
-    if(isdigit(key_raw[i])){
-      if(key_raw[i] == '0'){
-        key[j++] = 'z';
-        key[j++] = 'e';
-        key[j++] = 'r';
-        key[j++] = 'o';
+/* Replace any number in the key with the their word equivalent. */
+      if(isdigit(key_raw[i])){
+        if(key_raw[i] == '0'){
+          key[j++] = 'z';
+          key[j++] = 'e';
+          key[j++] = 'r';
+          key[j++] = 'o';
+        }
+        else if(key_raw[i] == '1'){
+          key[j++] = 'o';
+          key[j++] = 'n';
+          key[j++] = 'e';
+        }
+        else if(key_raw[i] == '2'){
+          key[j++] = 't';
+          key[j++] = 'w';
+          key[j++] = 'o';
+        }
+        else if(key_raw[i] == '3'){
+          key[j++] = 't';
+          key[j++] = 'h';
+          key[j++] = 'r';
+          key[j++] = 'e';
+          key[j++] = 'e';
+        }
+        else if(key_raw[i] == '4'){
+          key[j++] = 'f';
+          key[j++] = 'o';
+          key[j++] = 'u';
+          key[j++] = 'r';
+        }
+        else if(key_raw[i] == '5'){
+          key[j++] = 'f';
+          key[j++] = 'i';
+          key[j++] = 'v';
+          key[j++] = 'e';
+        }
+        else if(key_raw[i] == '6'){
+          key[j++] = 's';
+          key[j++] = 'i';
+          key[j++] = 'x';
+        }
+        else if(key_raw[i] == '7'){
+          key[j++] = 's';
+          key[j++] = 'e';
+          key[j++] = 'v';
+          key[j++] = 'e';
+          key[j++] = 'n';
+        }
+        else if(key_raw[i] == '8'){
+          key[j++] = 'e';
+          key[j++] = 'i';
+          key[j++] = 'g';
+          key[j++] = 'h';
+          key[j++] = 't';
+        }
+        else if(key_raw[i] == '9'){
+          key[j++] = 'n';
+          key[j++] = 'i';
+          key[j++] = 'n';
+          key[j++] = 'e';
+        }
       }
-      else if(key_raw[i] == '1'){
-        key[j++] = 'o';
-        key[j++] = 'n';
-        key[j++] = 'e';
-      }
-      else if(key_raw[i] == '2'){
-        key[j++] = 't';
-        key[j++] = 'w';
-        key[j++] = 'o';
-      }
-      else if(key_raw[i] == '3'){
-        key[j++] = 't';
-        key[j++] = 'h';
-        key[j++] = 'r';
-        key[j++] = 'e';
-        key[j++] = 'e';
-      }
-      else if(key_raw[i] == '4'){
-        key[j++] = 'f';
-        key[j++] = 'o';
-        key[j++] = 'u';
-        key[j++] = 'r';
-      }
-      else if(key_raw[i] == '5'){
-        key[j++] = 'f';
-        key[j++] = 'i';
-        key[j++] = 'v';
-        key[j++] = 'e';
-      }
-      else if(key_raw[i] == '6'){
-        key[j++] = 's';
-        key[j++] = 'i';
-        key[j++] = 'x';
-      }
-      else if(key_raw[i] == '7'){
-        key[j++] = 's';
-        key[j++] = 'e';
-        key[j++] = 'v';
-        key[j++] = 'e';
-        key[j++] = 'n';
-      }
-      else if(key_raw[i] == '8'){
-        key[j++] = 'e';
-        key[j++] = 'i';
-        key[j++] = 'g';
-        key[j++] = 'h';
-        key[j++] = 't';
-      }
-      else if(key_raw[i] == '9'){
-        key[j++] = 'n';
-        key[j++] = 'i';
-        key[j++] = 'n';
-        key[j++] = 'e';
-      }
-    }
-
     if(!(isalpha(key_raw[i])))
       continue;
     key[j++] = key_raw[i];
+    }
+
+/* Size checking */
+
+    if(strlen(key) < 1)
+      printf("ERROR: Key too short.\n");
+    else if(strlen(key) > MAX_SZ)
+      printf("ERROR: Key too long.\n");
+
   }
+  while(strlen(key) < 1 | strlen(key) > MAX_SZ);
 
 /* Print the first row, the Key, offset by a space. */
 
@@ -176,7 +186,7 @@ int encrypt(){
     fgets(message_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < strlen(message_raw); i++){
 
-/* Replace any number in the key with the their word equivalent. Probably not very useful for a key. */
+/* Replace any number in the Message with the their word equivalent. */
       if(isdigit(message_raw[i])){
         if(message_raw[i] == '0'){
           message[j++] = 'z';
@@ -246,20 +256,19 @@ int encrypt(){
 
       message[j++] = tolower(message_raw[i]);
     }
-  while(strlen(message) < 1)
-
-/* For dubugging. Prints the Message the algorithm recieves. */
-
-    /*for(i = 0; i < strlen(message); i++)
-      printf("%c", message[i]);*/
-
 /* Length checking. */
     if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
     else if(strlen(message) > MAX_SZ)
       printf("ERROR: Message too long.\n");
+
   }
   while(strlen(message) < 1 | strlen(message) > MAX_SZ);
+
+/* For dubugging. Prints the Message the algorithm recieves. */
+
+    /*for(i = 0; i < strlen(message); i++)
+      printf("%c", message[i]);*/
 
   do {
 
@@ -376,19 +385,34 @@ do{
 
     fgets(message_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < strlen(message_raw); i++){
+
+/* Checks for number-only inputs and prints a more specific error message */
+      if(isdigit(message_raw[i])){
+        choice[0] = 'y';
+        continue;
+     }
+
       if(!(isalpha(message_raw[i])))
         continue;
     message[j++] = message_raw[i];
     }
 
 /* Length checking. */
-    if(strlen(message) < 1)
+    if(strlen(message) < 1 & choice[0] == 'y')
+      printf("ERROR: This is not an accepted input.\n"
+             "This program does not output numbers in an encrypted string.\n"
+             "Maybe you have typed your key here instead?\n");
+    else if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
     else if(strlen(message) > MAX_SZ)
       printf("ERROR: Message too long.\n");
   }
   while(strlen(message) < 1 | strlen(message) > MAX_SZ);
 
+  if(choice[0] == 'y')
+    printf("There is a number in your input. This may not be a valid message.\n"
+           "The program will continue as normal, ignoring the numeric part of your input,\n"
+           "however this may cause your message to be decrypted incorrectly.\n");
   do {
 
 /* Get Key and remove the spaces. */
