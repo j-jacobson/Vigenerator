@@ -269,7 +269,71 @@ int encrypt(){
 
     fgets(key_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < sizeof(key_raw); i++){
-      if(key_raw[i] == ' ' | key_raw[i] == '\n')
+
+    if(isdigit(key_raw[i])){
+      if(key_raw[i] == '0'){
+        key[j++] = 'z';
+        key[j++] = 'e';
+        key[j++] = 'r';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '1'){
+        key[j++] = 'o';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '2'){
+        key[j++] = 't';
+        key[j++] = 'w';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '3'){
+        key[j++] = 't';
+        key[j++] = 'h';
+        key[j++] = 'r';
+        key[j++] = 'e';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '4'){
+        key[j++] = 'f';
+        key[j++] = 'o';
+        key[j++] = 'u';
+        key[j++] = 'r';
+      }
+      else if(key_raw[i] == '5'){
+        key[j++] = 'f';
+        key[j++] = 'i';
+        key[j++] = 'v';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '6'){
+        key[j++] = 's';
+        key[j++] = 'i';
+        key[j++] = 'x';
+      }
+      else if(key_raw[i] == '7'){
+        key[j++] = 's';
+        key[j++] = 'e';
+        key[j++] = 'v';
+        key[j++] = 'e';
+        key[j++] = 'n';
+      }
+      else if(key_raw[i] == '8'){
+        key[j++] = 'e';
+        key[j++] = 'i';
+        key[j++] = 'g';
+        key[j++] = 'h';
+        key[j++] = 't';
+      }
+      else if(key_raw[i] == '9'){
+        key[j++] = 'n';
+        key[j++] = 'i';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+    }
+
+      if(!(isalpha(key_raw[i])))
         continue;
       key[j++] = key_raw[i];
     }
@@ -332,6 +396,70 @@ do{
 
     fgets(key_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < strlen(key_raw); i++){
+
+    if(isdigit(key_raw[i])){
+      if(key_raw[i] == '0'){
+        key[j++] = 'z';
+        key[j++] = 'e';
+        key[j++] = 'r';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '1'){
+        key[j++] = 'o';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '2'){
+        key[j++] = 't';
+        key[j++] = 'w';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '3'){
+        key[j++] = 't';
+        key[j++] = 'h';
+        key[j++] = 'r';
+        key[j++] = 'e';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '4'){
+        key[j++] = 'f';
+        key[j++] = 'o';
+        key[j++] = 'u';
+        key[j++] = 'r';
+      }
+      else if(key_raw[i] == '5'){
+        key[j++] = 'f';
+        key[j++] = 'i';
+        key[j++] = 'v';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '6'){
+        key[j++] = 's';
+        key[j++] = 'i';
+        key[j++] = 'x';
+      }
+      else if(key_raw[i] == '7'){
+        key[j++] = 's';
+        key[j++] = 'e';
+        key[j++] = 'v';
+        key[j++] = 'e';
+        key[j++] = 'n';
+      }
+      else if(key_raw[i] == '8'){
+        key[j++] = 'e';
+        key[j++] = 'i';
+        key[j++] = 'g';
+        key[j++] = 'h';
+        key[j++] = 't';
+      }
+      else if(key_raw[i] == '9'){
+        key[j++] = 'n';
+        key[j++] = 'i';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+    }
+
       if(!(isalpha(key_raw[i])))
         continue;
       key[j++] = key_raw[i];
@@ -354,14 +482,24 @@ do{
   for(i = 0, j = 0; i < strlen(message); i++, j++){
     if(!key[j])
       j = 0;
-    if(message[i] - (key[j] - 'a') < 'a'){
+    if(message[i] - (key[j] - 'a') - 1 < 'a'){
       printf("%c", message[i] - key[j] + 'z');
       continue;
     }
-    else if(message[i] - (key[j] - 'a') > 'z'){
+    else if(message[i] - (key[j] - 'a') - 1 > 'z'){
       printf("%c", key[j] + message[i] - 'z');
       continue;
     }
+   /*
+    else if((message[i] - (key[j] - 'a') - 1) < 'a'){
+      printf("%c", message[i] - (key[j] - 'a') - 1 + 'z');
+      continue;
+    }
+    else if((message[i] - (key[j] - 'a') - 1) > 'z'){
+      printf("%c", message[i] - (key[j] - 'a') - 1 - 'z');
+      continue;
+    }
+    */
     printf("%c", message[i] - (key[j] - 'a') - 1);
   }
   printf("\n");

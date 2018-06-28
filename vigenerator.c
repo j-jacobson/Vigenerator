@@ -224,11 +224,11 @@ do{
   for(i = 0, j = 0; i < strlen(message); i++, j++){
     if(!key[j])
       j = 0;
-    if(message[i] - (key[j] - 'a') < 'a'){
+    if(message[i] - (key[j] - 'a') - 1 < 'a'){
       printf("%c", message[i] - key[j] + 'z');
       continue;
     }
-    else if(message[i] - (key[j] - 'a') > 'z'){
+    else if(message[i] - (key[j] - 'a') - 1 > 'z'){
       printf("%c", key[j] + message[i] - 'z');
       continue;
     }
