@@ -1,8 +1,8 @@
 /*
 
-Title: Vigenerator v3.0
-Author: Jonathan Jacobson (jonjacobson715@airmail.cc)
-Github: https://www.github.com/j-jacobson/
+Title: Vigenerator v3.1
+Author: Jonathan Jacobson (jonjacobson715@gmail.com)
+Github: https://github.com/j-jacobson/Vigenerator/
 
 */
 
@@ -11,38 +11,36 @@ Github: https://www.github.com/j-jacobson/
 #include <string.h>
 #include <stdlib.h>
 
-#define MAX_SZ 500
+#define MAX_SZ 1000
 
 int i, j, k;
 int columns;
 
-char message[100], key[100];
-char message_raw[100], key_raw[100], columns_raw[100];
-char encrypted[100];
+char message[MAX_SZ], key[MAX_SZ];
+char message_raw[MAX_SZ], key_raw[MAX_SZ], columns_raw[MAX_SZ];
+char encrypted[MAX_SZ];
 char choice[1];
 
 
 /* Problems that should be fixed in the future:
 
-  * The algorithm only works for lowercase letters.
-  * Symbols are practically unsupported. I don't know how the regular cipher handles them.
-    Maybe they should just be stripped from the message like spaces are. The function isalpha() could
-    help with this.
-  * Numbers are unsupported. They should be converted and encrypted somehow. Maybe a seperate version
-    of the algorithm should be created for them, it is important information.
   * A guy on stack exchange said that you should use strtol() instead of atoi() because it has better error handling.
-  * When decrypting, the message is too short. Always.
+
+  * numberToWord should be a function to promote reuse
+
+  * despacer should be a separate function
 
 */
 
-int table(){
+/* Creates and prints the tabla recta */
+void table(){
 
   do{
 
 /* Get the number of columns and convert to an integer. */
 
-    printf("Type the number of columns you need: ");
 
+    printf("Type the number of columns you need: ");
     fgets(columns_raw, MAX_SZ, stdin);
     columns = atoi(columns_raw);
 
@@ -54,16 +52,91 @@ int table(){
   }
   while(columns < 1 | columns > 50);
 
+  do{
+
 /* Get the Key and remove the spaces */
+    printf("Type your key: ");
 
-  printf("Type your key: ");
+    fgets(key_raw, MAX_SZ, stdin);
+    for(i = 0, j = 0; i < strlen(key_raw); i++){
 
-  fgets(key_raw, MAX_SZ, stdin);
-  for(i = 0, j = 0; i < strlen(key_raw); i++){
-    if(key_raw[i] == ' ' | key_raw[i] == '\n')
+/* Replace any number in the key with the their word equivalent. */
+      if(isdigit(key_raw[i])){
+        if(key_raw[i] == '0'){
+          key[j++] = 'z';
+          key[j++] = 'e';
+          key[j++] = 'r';
+          key[j++] = 'o';
+        }
+        else if(key_raw[i] == '1'){
+          key[j++] = 'o';
+          key[j++] = 'n';
+          key[j++] = 'e';
+        }
+        else if(key_raw[i] == '2'){
+          key[j++] = 't';
+          key[j++] = 'w';
+          key[j++] = 'o';
+        }
+        else if(key_raw[i] == '3'){
+          key[j++] = 't';
+          key[j++] = 'h';
+          key[j++] = 'r';
+          key[j++] = 'e';
+          key[j++] = 'e';
+        }
+        else if(key_raw[i] == '4'){
+          key[j++] = 'f';
+          key[j++] = 'o';
+          key[j++] = 'u';
+          key[j++] = 'r';
+        }
+        else if(key_raw[i] == '5'){
+          key[j++] = 'f';
+          key[j++] = 'i';
+          key[j++] = 'v';
+          key[j++] = 'e';
+        }
+        else if(key_raw[i] == '6'){
+          key[j++] = 's';
+          key[j++] = 'i';
+          key[j++] = 'x';
+        }
+        else if(key_raw[i] == '7'){
+          key[j++] = 's';
+          key[j++] = 'e';
+          key[j++] = 'v';
+          key[j++] = 'e';
+          key[j++] = 'n';
+        }
+        else if(key_raw[i] == '8'){
+          key[j++] = 'e';
+          key[j++] = 'i';
+          key[j++] = 'g';
+          key[j++] = 'h';
+          key[j++] = 't';
+        }
+        else if(key_raw[i] == '9'){
+          key[j++] = 'n';
+          key[j++] = 'i';
+          key[j++] = 'n';
+          key[j++] = 'e';
+        }
+      }
+    if(!(isalpha(key_raw[i])))
       continue;
     key[j++] = key_raw[i];
+    }
+
+/* Size checking */
+
+    if(strlen(key) < 1)
+      printf("ERROR: Key too short.\n");
+    else if(strlen(key) > MAX_SZ)
+      printf("ERROR: Key too long.\n");
+
   }
+  while(strlen(key) < 1 | strlen(key) > MAX_SZ);
 
 /* Print the first row, the Key, offset by a space. */
 
@@ -98,10 +171,8 @@ int table(){
   }
 }
 
-
-
 /* Encryption function */
-int encrypt(){
+void encrypt(){
 
   do{
 
@@ -111,25 +182,90 @@ int encrypt(){
 
     fgets(message_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < strlen(message_raw); i++){
-      if(message_raw[i] == ' ' | message_raw[i] == '\n'){
-        continue;
-        k++;
+
+/* Replace any number in the Message with the their word equivalent. */
+      if(isdigit(message_raw[i])){
+        if(message_raw[i] == '0'){
+          message[j++] = 'z';
+          message[j++] = 'e';
+          message[j++] = 'r';
+          message[j++] = 'o';
+        }
+        else if(message_raw[i] == '1'){
+          message[j++] = 'o';
+          message[j++] = 'n';
+          message[j++] = 'e';
+        }
+        else if(message_raw[i] == '2'){
+          message[j++] = 't';
+          message[j++] = 'w';
+          message[j++] = 'o';
+        }
+        else if(message_raw[i] == '3'){
+          message[j++] = 't';
+          message[j++] = 'h';
+          message[j++] = 'r';
+          message[j++] = 'e';
+          message[j++] = 'e';
+        }
+        else if(message_raw[i] == '4'){
+          message[j++] = 'f';
+          message[j++] = 'o';
+          message[j++] = 'u';
+          message[j++] = 'r';
+        }
+        else if(message_raw[i] == '5'){
+          message[j++] = 'f';
+          message[j++] = 'i';
+          message[j++] = 'v';
+          message[j++] = 'e';
+        }
+        else if(message_raw[i] == '6'){
+          message[j++] = 's';
+          message[j++] = 'i';
+          message[j++] = 'x';
+        }
+        else if(message_raw[i] == '7'){
+          message[j++] = 's';
+          message[j++] = 'e';
+          message[j++] = 'v';
+          message[j++] = 'e';
+          message[j++] = 'n';
+        }
+        else if(message_raw[i] == '8'){
+          message[j++] = 'e';
+          message[j++] = 'i';
+          message[j++] = 'g';
+          message[j++] = 'h';
+          message[j++] = 't';
+        }
+        else if(message_raw[i] == '9'){
+          message[j++] = 'n';
+          message[j++] = 'i';
+          message[j++] = 'n';
+          message[j++] = 'e';
+        }
       }
-      message[j++] = message_raw[i];
+
+
+      if(!(isalpha(message_raw[i])))
+        continue;
+
+      message[j++] = tolower(message_raw[i]);
     }
+/* Length checking. */
+    if(strlen(message) < 1)
+      printf("ERROR: Message too short.\n");
+    else if(strlen(message) > MAX_SZ)
+      printf("ERROR: Message too long.\n");
+
+  }
+  while(strlen(message) < 1 | strlen(message) > MAX_SZ);
 
 /* For dubugging. Prints the Message the algorithm recieves. */
 
     /*for(i = 0; i < strlen(message); i++)
       printf("%c", message[i]);*/
-
-/* Length checking. */
-    if(strlen(message) < 1)
-      printf("ERROR: Message too short.\n");
-    else if(strlen(message) > 500)
-      printf("ERROR: Message too long.\n");
-  }
-  while(strlen(message) < 1 | strlen(message) > 500);
 
   do {
 
@@ -139,18 +275,82 @@ int encrypt(){
 
     fgets(key_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < sizeof(key_raw); i++){
-      if(key_raw[i] == ' ' | key_raw[i] == '\n')
+
+    if(isdigit(key_raw[i])){
+      if(key_raw[i] == '0'){
+        key[j++] = 'z';
+        key[j++] = 'e';
+        key[j++] = 'r';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '1'){
+        key[j++] = 'o';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '2'){
+        key[j++] = 't';
+        key[j++] = 'w';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '3'){
+        key[j++] = 't';
+        key[j++] = 'h';
+        key[j++] = 'r';
+        key[j++] = 'e';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '4'){
+        key[j++] = 'f';
+        key[j++] = 'o';
+        key[j++] = 'u';
+        key[j++] = 'r';
+      }
+      else if(key_raw[i] == '5'){
+        key[j++] = 'f';
+        key[j++] = 'i';
+        key[j++] = 'v';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '6'){
+        key[j++] = 's';
+        key[j++] = 'i';
+        key[j++] = 'x';
+      }
+      else if(key_raw[i] == '7'){
+        key[j++] = 's';
+        key[j++] = 'e';
+        key[j++] = 'v';
+        key[j++] = 'e';
+        key[j++] = 'n';
+      }
+      else if(key_raw[i] == '8'){
+        key[j++] = 'e';
+        key[j++] = 'i';
+        key[j++] = 'g';
+        key[j++] = 'h';
+        key[j++] = 't';
+      }
+      else if(key_raw[i] == '9'){
+        key[j++] = 'n';
+        key[j++] = 'i';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+    }
+
+      if(!(isalpha(key_raw[i])))
         continue;
       key[j++] = key_raw[i];
     }
 
 /* Length checking. */
-    if(strlen(key) < (strlen(message) / 4))
+    if(strlen(key) < 1)
       printf("ERROR: Key too short.\n");
-    if(strlen(key) > 500)
+    if(strlen(key) > MAX_SZ)
       printf("ERROR: Key too long.\n");
   }
-  while((strlen(key) < (strlen(message) / 4)) | strlen(key) > 500);
+  while((strlen(key) < 1) | (strlen(key) > MAX_SZ));
 
 /* Encryption algorithm. */
 /* The distance that the message character is from 'a'
@@ -173,47 +373,126 @@ int encrypt(){
 }
 
 /* Decryption function. */
-int decrypt(){
+void decrypt(){
 
-do{
+  do{
 
-/* Get Message and remove the spaces. */
+  /* Get Message and remove the spaces. */
     printf("Please type your message: ");
 
     fgets(message_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < strlen(message_raw); i++){
-      if(message_raw[i] == ' ' | message_raw[i] == '\n')
+
+  /* Checks for number-only inputs and prints a more specific error message */
+      if(isdigit(message_raw[i])){
+        choice[0] = 'y';
+        continue;
+     }
+
+      if(!(isalpha(message_raw[i])))
         continue;
     message[j++] = message_raw[i];
     }
 
-/* Length checking. */
-    if(strlen(message) < 1)
+  /* Length checking. */
+    if(strlen(message) < 1 & choice[0] == 'y')
+      printf("ERROR: This is not an accepted input.\n"
+             "This program does not output numbers in an encrypted string.\n"
+             "Maybe you have typed your key here instead?\n");
+    else if(strlen(message) < 1)
       printf("ERROR: Message too short.\n");
-    else if(strlen(message) > 500)
+    else if(strlen(message) > MAX_SZ)
       printf("ERROR: Message too long.\n");
   }
-  while(strlen(message) < 1 | strlen(message) > 500);
+  while(strlen(message) < 1 | strlen(message) > MAX_SZ);
 
+  if(choice[0] == 'y')
+    printf("There is a number in your input. This may not be a valid message.\n"
+           "The program will continue as normal, ignoring the numeric part of your input,\n"
+           "however this may cause your message to be decrypted incorrectly.\n");
   do {
 
-/* Get Key and remove the spaces. */
+  /* Get Key and remove the spaces. */
     printf("Please type your key: ");
 
     fgets(key_raw, MAX_SZ, stdin);
     for(i = 0, j = 0; i < strlen(key_raw); i++){
-      if(key_raw[i] == ' ' | key_raw[i] == '\n')
+
+    if(isdigit(key_raw[i])){
+      if(key_raw[i] == '0'){
+        key[j++] = 'z';
+        key[j++] = 'e';
+        key[j++] = 'r';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '1'){
+        key[j++] = 'o';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '2'){
+        key[j++] = 't';
+        key[j++] = 'w';
+        key[j++] = 'o';
+      }
+      else if(key_raw[i] == '3'){
+        key[j++] = 't';
+        key[j++] = 'h';
+        key[j++] = 'r';
+        key[j++] = 'e';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '4'){
+        key[j++] = 'f';
+        key[j++] = 'o';
+        key[j++] = 'u';
+        key[j++] = 'r';
+      }
+      else if(key_raw[i] == '5'){
+        key[j++] = 'f';
+        key[j++] = 'i';
+        key[j++] = 'v';
+        key[j++] = 'e';
+      }
+      else if(key_raw[i] == '6'){
+        key[j++] = 's';
+        key[j++] = 'i';
+        key[j++] = 'x';
+      }
+      else if(key_raw[i] == '7'){
+        key[j++] = 's';
+        key[j++] = 'e';
+        key[j++] = 'v';
+        key[j++] = 'e';
+        key[j++] = 'n';
+      }
+      else if(key_raw[i] == '8'){
+        key[j++] = 'e';
+        key[j++] = 'i';
+        key[j++] = 'g';
+        key[j++] = 'h';
+        key[j++] = 't';
+      }
+      else if(key_raw[i] == '9'){
+        key[j++] = 'n';
+        key[j++] = 'i';
+        key[j++] = 'n';
+        key[j++] = 'e';
+      }
+    }
+
+      if(!(isalpha(key_raw[i])))
         continue;
       key[j++] = key_raw[i];
     }
 
 /* Length checking. */
-    if(strlen(key) < (strlen(message) / 4))
+    if(strlen(key) < 1)
       printf("ERROR: Key too short.\n");
-    if(strlen(key) > 500)
+    if(strlen(key) > MAX_SZ)
       printf("ERROR: Key too long.\n");
   }
-  while((strlen(key) < (strlen(message) / 4)) | strlen(key) > 500);
+  while((strlen(key) < 1) | (strlen(key) > MAX_SZ));
 
 /* Decryption algorithm. */
 /* The distance that the key is from 'a' is subtracted from the encrypted message, undoing the encryption.
@@ -232,14 +511,23 @@ do{
       printf("%c", key[j] + message[i] - 'z');
       continue;
     }
+   /*
+    else if((message[i] - (key[j] - 'a') - 1) < 'a'){
+      printf("%c", message[i] - (key[j] - 'a') - 1 + 'z');
+      continue;
+    }
+    else if((message[i] - (key[j] - 'a') - 1) > 'z'){
+      printf("%c", message[i] - (key[j] - 'a') - 1 - 'z');
+      continue;
+    }
+    */
     printf("%c", message[i] - (key[j] - 'a') - 1);
   }
   printf("\n");
 
 }
 
-
-/* Main function. Allows user to pick from options Encrypt, Decrypt, or Show Table. */
+/* Main function. Allows user to pick from options (E)ncrypt, (D)ecrypt, or Show (T)able. */
 int main(){
 
   do{
@@ -249,7 +537,7 @@ int main(){
   }
 
 /* This could probably be replaced/enhanced with the lower() function. */
-  while((*choice != 'T') & (*choice != 'E') & (*choice != 'D'));
+  while((*choice != 'T') & (*choice != 'E') & (*choice != 'D') & (*choice != 't') & (*choice != 'e') & (*choice != 'd'));
 
   if((*choice == 'T') | (*choice == 't'))
     table();
@@ -260,5 +548,5 @@ int main(){
   else if((*choice == 'D') | (*choice == 'd'))
     decrypt();
 
+  return 0;
 }
-
