@@ -4,3 +4,13 @@ Program to encrypt and decrypt messages, as well as produce tabula recta using G
 https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
 
 vigenerator.c is a working version of the program.
+
+Run the program, and it will ask you what you want to do:
+
+Show (T)able,
+
+(E)ncrypt message,
+
+or (D)ecrypt message.
+
+The program will ask you for a key, and message (if encrypting/decrypting). It was ask how large of a table you want if you are generating a table.
