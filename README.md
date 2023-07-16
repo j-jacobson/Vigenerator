@@ -13,4 +13,4 @@ Show (T)able,
 
 or (D)ecrypt message.
 
-The program will ask you for a key, and message (if encrypting/decrypting). It was ask how large of a table you want if you are generating a table.
+The program will ask you for a key, and message (if encrypting/decrypting). If you are generating a table, it will also ask how large of a table you want.
