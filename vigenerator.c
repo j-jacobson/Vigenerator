@@ -1,7 +1,7 @@
 /*
 
 Title: Vigenerator v3.1
-Author: Jonathan Jacobson (jonjacobson715@gmail.com)
+Author: Jonathan Jacobson (jacobson.jonathan.1@gmail.com)
 Github: https://github.com/j-jacobson/Vigenerator/
 
 */
